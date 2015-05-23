@@ -24,7 +24,7 @@ public class RotateCamera : MonoBehaviour
 	public float nonOculusRotationSpeed = 30;
 	public Camera nonOculusCamera;
 	
-
+	public float rotationFactor = 2;
 
 	// Use this for initialization
 	void Start () 
@@ -67,12 +67,14 @@ public class RotateCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-
+		float yDirectionOffset = 0;
 		if (useOculusForControls)
 		{
 			Vector3 flatForward = centerOculus.transform.localRotation.eulerAngles;
 
-			yDirection = flatForward.y;
+			float targetYDirection = flatForward.y*rotationFactor;
+			yDirection = Mathf.LerpAngle(yDirection, targetYDirection, 0.1f);
+			yDirectionOffset = yDirection - targetYDirection;
 		}
 		else
 		{
@@ -90,6 +92,6 @@ public class RotateCamera : MonoBehaviour
 		
 		transform.localRotation = Quaternion.Euler(0, yDirection, 0);
 		
-		trackingCenter.localRotation = Quaternion.Euler(0, -yDirection, 0);
+		trackingCenter.localRotation = Quaternion.Euler(0, -(yDirection - yDirectionOffset)/rotationFactor, 0);
 	}
 }

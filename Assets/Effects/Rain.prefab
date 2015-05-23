@@ -39,7 +39,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 154544}
-  m_LocalRotation: {x: -1, y: 0, z: 0, w: 1.49011598e-07}
+  m_LocalRotation: {x: .707106829, y: -2.10453663e-08, z: .707106709, w: -2.09359285e-07}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -67,9 +67,9 @@ WindZone:
   m_Enabled: 1
   m_Mode: 0
   m_Radius: .200000003
-  m_WindMain: .150000006
-  m_WindTurbulence: 10000
-  m_WindPulseMagnitude: .5
+  m_WindMain: 3
+  m_WindTurbulence: 0
+  m_WindPulseMagnitude: 10
   m_WindPulseFrequency: .00999999978
 --- !u!198 &19894052
 ParticleSystem:
@@ -88,7 +88,7 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: 25
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -121,7 +121,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: 2
+      scalar: 30
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -242,13 +242,13 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4294967295
+        rgba: 2660205940
       maxColor:
         serializedVersion: 2
-        rgba: 4294967295
-      minMaxState: 0
+        rgba: 1456916397
+      minMaxState: 2
     startSize:
-      scalar: .400000006
+      scalar: .0399999991
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -313,7 +313,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    gravityModifier: .00999999978
+    gravityModifier: 0
     inheritVelocity: 0
     maxNumParticles: 5000
   ShapeModule:
@@ -321,7 +321,7 @@ ParticleSystem:
     enabled: 1
     type: 8
     radius: 60.1889915
-    angle: 57.8730011
+    angle: 0
     length: 5
     boxX: 1
     boxY: 1
@@ -334,7 +334,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 200
+      scalar: 2000
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -411,7 +411,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 1
   RotationModule:
-    enabled: 1
+    enabled: 0
     curve:
       scalar: .785398126
       maxCurve:
@@ -583,7 +583,7 @@ ParticleSystem:
     cycles: 1
     randomRow: 1
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       scalar: 0
       maxCurve:
@@ -685,7 +685,7 @@ ParticleSystem:
       minMaxState: 0
     inWorldSpace: 0
   ForceModule:
-    enabled: 1
+    enabled: 0
     x:
       scalar: .200000003
       maxCurve:
@@ -1104,7 +1104,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: adf644484aeac05429339fb962bbc315, type: 2}
+  - {fileID: 2100000, guid: b0dc6cf6d8606a643806a84c6aad857e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1118,11 +1118,11 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_MaxParticleSize: .5
   m_CameraVelocityScale: 0
-  m_VelocityScale: 0
-  m_LengthScale: 2
+  m_VelocityScale: .0199999996
+  m_LengthScale: 1
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_SortMode: 0
