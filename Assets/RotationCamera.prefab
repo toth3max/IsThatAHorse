@@ -180,7 +180,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -61.5}
+  m_LocalPosition: {x: 0, y: 0, z: -61.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 496032}
@@ -399,7 +399,7 @@ MonoBehaviour:
   centerOculus: {fileID: 411814}
   trackingCenter: {fileID: 426356}
   oculusControls: {fileID: 136038}
-  useOculusForControls: 1
+  useOculusForControls: 0
   nonOculusRotationSpeed: 50
   nonOculusCamera: {fileID: 2062316}
   _targetPosition: {x: 0, y: 0, z: 0}

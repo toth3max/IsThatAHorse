@@ -324,6 +324,7 @@ MonoBehaviour:
   gravity: 70
   moveSpeed: 10
   teleportSound: {fileID: 8236244}
+  groundCheckDistance: .699999988
   hackyFrameWait: 5
 --- !u!212 &21209918
 SpriteRenderer:
