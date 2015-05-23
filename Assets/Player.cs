@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
 			yVelocity = 0;
 
 			// jump
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetButton("Jump"))
 			{
 				yVelocity = jumpVelocity;
 			}
