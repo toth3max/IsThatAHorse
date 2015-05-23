@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
 	void CheckTeleport(Vector3 cameraPosition) {
 		// teleport in 'z' direction toclosest object
 		// only teleport when moving downwards and not grounded
-		Debug.Log (onGround+" "+wasGoingDown);
+//		Debug.Log (onGround+" "+wasGoingDown);
 		if (onGround && wasGoingDown)
 		{
 			if (closestObject != null)

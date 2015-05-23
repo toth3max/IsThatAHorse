@@ -56,7 +56,7 @@ public class RotateCamera : MonoBehaviour
 
 			float angle = Vector3.Angle(transform.forward, relativePosition);
 
-			Debug.Log (angle);
+//			Debug.Log (angle);
 
 			float offset = relativePosition.magnitude * Mathf.Cos(angle*Mathf.Deg2Rad);
 
