@@ -95,6 +95,14 @@ public class Player : MonoBehaviour
 		// Read the horizontal movement
 		float horizontal = Input.GetAxisRaw ("Horizontal");
 
+		// Flip player sprite based on movement
+		if(horizontal < -0.4f) {
+			this.transform.localScale = new Vector3(-1f, this.transform.localScale.y, this.transform.localScale.z);
+		}
+		if(horizontal > 0.4f) {
+			this.transform.localScale = new Vector3(1f, this.transform.localScale.y, this.transform.localScale.z);
+		}
+
 		Vector3 centerFoot = Vector3.Lerp(leftFoot.position, rightFoot.position, 0.5f);
 		
 		Vector3 centerDirection = centerFoot - cameraPosition;

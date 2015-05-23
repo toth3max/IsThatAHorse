@@ -1,0 +1,187 @@
+fileFormatVersion: 2
+guid: e428e3e99d24fa14f82758a27e6e2ddc
+timeCreated: 1432387117
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: cat walking_0
+    21300002: cat walking_1
+    21300004: cat walking_2
+    21300006: cat walking_3
+    21300008: cat walking_4
+    21300010: cat walking_5
+    21300012: cat prototype_6
+    21300014: cat prototype_7
+    21300016: cat prototype_8
+    21300018: cat prototype_9
+    21300020: cat prototype_10
+    21300022: cat prototype_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: cat walking_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 3137
+        width: 326
+        height: 173
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat walking_1
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 3134
+        width: 334
+        height: 176
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat walking_2
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 3129
+        width: 334
+        height: 177
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat walking_3
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 3129
+        width: 339
+        height: 174
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat walking_4
+      rect:
+        serializedVersion: 2
+        x: 1516
+        y: 3135
+        width: 323
+        height: 180
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat walking_5
+      rect:
+        serializedVersion: 2
+        x: 1889
+        y: 3135
+        width: 320
+        height: 182
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat prototype_6
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 2716
+        width: 326
+        height: 175
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat prototype_7
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 2712
+        width: 341
+        height: 165
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat prototype_8
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 2715
+        width: 354
+        height: 228
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 5, y: 0, z: 0, w: 0}
+    - name: cat prototype_9
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 2719
+        width: 365
+        height: 329
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat prototype_10
+      rect:
+        serializedVersion: 2
+        x: 1502
+        y: 2719
+        width: 336
+        height: 190
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat prototype_11
+      rect:
+        serializedVersion: 2
+        x: 1858
+        y: 2717
+        width: 351
+        height: 183
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
