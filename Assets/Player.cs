@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
 
 			// apply gravity	
 			yVelocity = yVelocity <= -gravity ? -gravity : yVelocity - gravity*Time.deltaTime;
-			Debug.Log("Current velocity: " + yVelocity);
+
 			animator.SetBool("isWalking", false);
 			if (yVelocity < 0f) {
 				animator.SetBool("isFalling", true); 
