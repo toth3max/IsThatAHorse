@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 	private bool onGroundForward;
 	private bool onGroundDown;
 	private bool onGround { get { return onGroundDown || onGroundForward; } }
+	private Vector3 lastKnownGoodPosition = new Vector3 (2, 2, 2);
 
 	public int hackyFrameWait = 5;
 
@@ -70,11 +71,20 @@ public class Player : MonoBehaviour
 		CheckHorizontalMovement(cameraPosition);
 
 		RealignCamera();
+		CheckReset ();
+	}
+
+	void CheckReset() {
+		if (Input.GetButton ("ResetPlayer")) {
+			transform.position = lastKnownGoodPosition;
+			yVelocity = 0;
+		}
 	}
 
 	void ApplyVerticalMovement(bool grounded) {
 		if (grounded)
 		{
+			lastKnownGoodPosition = transform.position;
 			// Remove gravity
 			yVelocity = 0;
 			animator.SetBool("isJumping", false); 
@@ -88,8 +98,8 @@ public class Player : MonoBehaviour
 		{
 
 			// apply gravity	
-			yVelocity -= gravity*Time.deltaTime;
-
+			yVelocity = yVelocity <= -gravity ? -gravity : yVelocity - gravity*Time.deltaTime;
+			Debug.Log("Current velocity: " + yVelocity);
 			animator.SetBool("isWalking", false);
 			if (yVelocity < 0f) {
 				animator.SetBool("isFalling", true); 
