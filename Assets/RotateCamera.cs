@@ -38,15 +38,29 @@ public class RotateCamera : MonoBehaviour
 	
 	public float yDirection { get; private set;}
 
-	public float Height 
+	public Vector3 _targetPosition;
+	public Vector3 TargetPosition 
 	{ 
 		get
 		{
-			return transform.position.y;
+			return _targetPosition;
 		}
 		set
 		{
-			transform.position = new Vector3(transform.position.x, value, transform.position.z);
+			_targetPosition = value;
+
+			Vector3 relativePosition = _targetPosition;
+			relativePosition.y = 0;
+
+			Vector3 right = transform.right;
+
+			float angle = Vector3.Angle(transform.forward, relativePosition);
+
+			Debug.Log (angle);
+
+			float offset = relativePosition.magnitude * Mathf.Cos(angle*Mathf.Deg2Rad);
+
+			transform.position = _targetPosition - offset*transform.forward;
 		}
 	}
 	
