@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
 	public float gravity = 20;
 	public float moveSpeed = 20;
 
+	public AudioSource teleportSound;
+
+
 	// Use this for initialization
 	void Start () {
 	
@@ -89,6 +92,8 @@ public class Player : MonoBehaviour
 		    yVelocity -= gravity*Time.deltaTime;
 		}
 
+
+
 		transform.position += Vector3.up*yVelocity*Time.deltaTime;
 
 
@@ -143,13 +148,14 @@ public class Player : MonoBehaviour
 				transform.position = cameraPosition + playerSphericalPosition * targetPlayerPosition;
 				
 				Debug.DrawRay(cameraPosition, transform.position, Color.red);
+
+				teleportSound.Play();
 			}
 		}
 
 
 		// adjust camera position to player position
-		RotateCamera.instance.transform.position = transform.position;
-		RotateCamera.instance.Height = transform.position.y;
+		RotateCamera.instance.TargetPosition = transform.position;
 	}
 }
 
