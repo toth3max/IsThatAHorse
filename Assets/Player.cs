@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
 
 		transform.rotation = Quaternion.Euler(0, RotateCamera.instance.yDirection, 0);
 
-		RotateCamera.instance.Height = transform.position.y;
 		
 		Vector3 cameraPosition = RotateCamera.instance.centerOculus.position;
 
@@ -99,6 +98,9 @@ public class Player : MonoBehaviour
 		Vector3 rightVector = Vector3.Cross(Vector3.up, centerDirection);
 
 		transform.position -= leftMove*rightVector*moveSpeed*Time.deltaTime;
+
+		RotateCamera.instance.transform.position = transform.position;
+		RotateCamera.instance.Height = transform.position.y;
 	}
 }
 
