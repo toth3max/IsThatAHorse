@@ -171,6 +171,14 @@ public class Player : MonoBehaviour
 		// Read the horizontal movement
 		float horizontal = Input.GetAxisRaw ("Horizontal");
 
+		// Flip player sprite based on movement
+		if(horizontal < -0.4f) {
+			this.transform.localScale = new Vector3(-1f, this.transform.localScale.y, this.transform.localScale.z);
+		}
+		if(horizontal > 0.4f) {
+			this.transform.localScale = new Vector3(1f, this.transform.localScale.y, this.transform.localScale.z);
+		}
+
 		Vector3 rightVector = Vector3.Cross(Vector3.up, GetCenterDirection(cameraPosition));
 		
 		transform.position += horizontal*rightVector*moveSpeed*Time.deltaTime;
