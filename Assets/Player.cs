@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
 	public Transform leftFoot;
 	public Transform rightFoot;
+	public GameObject catSprite;
 
 	public LayerMask groundLayers;
 
@@ -14,10 +15,11 @@ public class Player : MonoBehaviour
 
 	public AudioSource teleportSound;
 
+	private Animator animator;
 
 	// Use this for initialization
 	void Start () {
-	
+		animator = catSprite.GetComponent<Animator>();
 	}
 
 	public bool onGround { get; private set;}
@@ -174,9 +176,14 @@ public class Player : MonoBehaviour
 		// Flip player sprite based on movement
 		if(horizontal < -0.4f) {
 			this.transform.localScale = new Vector3(-1f, this.transform.localScale.y, this.transform.localScale.z);
+			animator.SetBool("isWalking", true);
 		}
 		if(horizontal > 0.4f) {
 			this.transform.localScale = new Vector3(1f, this.transform.localScale.y, this.transform.localScale.z);
+			animator.SetBool("isWalking", true);
+		}
+		if(horizontal > -0.4f && horizontal < 0.4f) {
+			animator.SetBool("isWalking", false);
 		}
 
 		Vector3 rightVector = Vector3.Cross(Vector3.up, GetCenterDirection(cameraPosition));
