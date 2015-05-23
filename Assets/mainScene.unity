@@ -435,7 +435,7 @@ MonoBehaviour:
   trackingCenter: {fileID: 1024937209}
   oculusControls: {fileID: 2078047420}
   useOculusForControls: 0
-  nonOculusRotationSpeed: 0
+  nonOculusRotationSpeed: 30
   nonOculusCamera: {fileID: 181445282}
 --- !u!4 &741019780 stripped
 Transform:
