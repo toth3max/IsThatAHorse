@@ -173,7 +173,7 @@ GameObject:
   - 124: {fileID: 181445280}
   - 81: {fileID: 181445279}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Non Oculus Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,10 +239,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 181445278}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 32.9099998}
+  m_LocalPosition: {x: 0, y: 1, z: -61.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 428002902}
   m_RootOrder: 1
 --- !u!1 &284052830
 GameObject:
@@ -385,7 +385,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 459718, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -43.7000008
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
@@ -417,8 +417,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 741019780}
+  - {fileID: 181445283}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!114 &428002903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,6 +433,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerOculus: {fileID: 1815619935}
   trackingCenter: {fileID: 1024937209}
+  oculusControls: {fileID: 2078047420}
+  useOculusForControls: 0
+  nonOculusRotationSpeed: 0
+  nonOculusCamera: {fileID: 181445282}
 --- !u!4 &741019780 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
@@ -495,7 +500,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &1024937209 stripped
 Transform:
   m_PrefabParentObject: {fileID: 459718, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
@@ -633,7 +638,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   jumpVelocity: 20
-  gravity: 20
+  gravity: 30
+  moveSpeed: 20
   hackyFrameWait: 5
 --- !u!4 &1723465743
 Transform:
@@ -649,7 +655,7 @@ Transform:
   - {fileID: 1605960037}
   - {fileID: 409078569}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &1808532250
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +765,10 @@ Transform:
   - {fileID: 2143416863}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &2078047420 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+  m_PrefabInternal: {fileID: 416720185}
 --- !u!1 &2085706399
 GameObject:
   m_ObjectHideFlags: 0

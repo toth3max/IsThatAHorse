@@ -15,6 +15,14 @@ public class RotateCamera : MonoBehaviour
 	public Transform centerOculus;
 	public Transform trackingCenter;
 
+
+	public GameObject oculusControls;
+
+	[Header("Non oculus mode")]
+	public bool useOculusForControls = true;
+
+	public float nonOculusRotationSpeed = 30;
+	public Camera nonOculusCamera;
 	
 
 
@@ -22,9 +30,14 @@ public class RotateCamera : MonoBehaviour
 	void Start () 
 	{
 		
+		nonOculusCamera.gameObject.SetActive(!useOculusForControls);
+		oculusControls.gameObject.SetActive(useOculusForControls);
+
+		
 	}
 	
 	public float yDirection { get; private set;}
+
 	public float Height 
 	{ 
 		get
@@ -40,14 +53,29 @@ public class RotateCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		Vector3 flatForward = centerOculus.transform.localRotation.eulerAngles;
 
-		yDirection = flatForward.y;
+		if (useOculusForControls)
+		{
+			Vector3 flatForward = centerOculus.transform.localRotation.eulerAngles;
 
-		Debug.DrawRay(transform.position, Quaternion.AngleAxis(flatForward.y, Vector3.up)*Vector3.forward * 100, Color.red);
-
-		transform.localRotation = Quaternion.Euler(0, flatForward.y, 0);
-
-		trackingCenter.localRotation = Quaternion.Euler(0, -flatForward.y, 0);
+			yDirection = flatForward.y;
+		}
+		else
+		{
+			if (Input.GetKey(KeyCode.Q))
+			{
+				yDirection += nonOculusRotationSpeed*Time.deltaTime;
+			}
+			if (Input.GetKey(KeyCode.E))
+			{
+				yDirection += nonOculusRotationSpeed*Time.deltaTime;
+			}
+		}
+		
+		Debug.DrawRay(transform.position, Quaternion.AngleAxis(yDirection, Vector3.up)*Vector3.forward * 100, Color.red);
+		
+		transform.localRotation = Quaternion.Euler(0, yDirection, 0);
+		
+		trackingCenter.localRotation = Quaternion.Euler(0, -yDirection, 0);
 	}
 }

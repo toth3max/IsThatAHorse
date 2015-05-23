@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
 	public float jumpVelocity = 15;
 	public float gravity = 20;
+	public float moveSpeed = 20;
 
 	// Use this for initialization
 	void Start () {
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour
 				hitGround = true;
 				break ;// HACK
 			}
-			Debug.Log (i+": "+hits.Length);
+//			Debug.Log (i+": "+hits.Length);
 		}
 
 		onGround = hitGround;
@@ -78,6 +79,26 @@ public class Player : MonoBehaviour
 
 		transform.position += Vector3.up*yVelocity*Time.deltaTime;
 
+
+		float leftMove = 0;
+		if (Input.GetKey(KeyCode.A))
+		{
+			leftMove += 1;
+		}
+		if (Input.GetKey(KeyCode.D))
+		{
+			leftMove -= 1;
+		}
+//		Debug.Log(leftMove);
+
+		
+		Vector3 centerFoot = Vector3.Lerp(leftFoot.position, rightFoot.position, 0.5f);
+		
+		Vector3 centerDirection = centerFoot - cameraPosition;
+		centerDirection.Normalize();
+		Vector3 rightVector = Vector3.Cross(Vector3.up, centerDirection);
+
+		transform.position -= leftMove*rightVector*moveSpeed*Time.deltaTime;
 	}
 }
 
