@@ -195,10 +195,10 @@ public class Player : MonoBehaviour
 				
 				float playerDistance   = Vector3.Distance(transform.position, cameraPosition);
 				
-				Debug.Log (closeHitDistance +" : "+playerDistance+" : "+farHitDistance);
+//				Debug.Log (closeHitDistance +" : "+playerDistance+" : "+farHitDistance);
 				float targetPlayerPosition = Mathf.Clamp(playerDistance, closeHitDistance, farHitDistance);
 
-				Debug.Log (closestForwardObject);
+//				Debug.Log (closestForwardObject);
 
 				Vector3 centerDirection = GetCenterDirection(cameraPosition);
 
