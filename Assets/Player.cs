@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
 		{
 			// Remove gravity
 			yVelocity = 0;
+			animator.SetBool("isJumping", false); 
+			animator.SetBool("isFalling", false);
 
 			if (Input.GetButton("Jump")) {
 				yVelocity = jumpVelocity;
@@ -68,8 +70,21 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
+
 			// apply gravity	
 			yVelocity -= gravity*Time.deltaTime;
+
+			animator.SetBool("isWalking", false);
+			if (yVelocity < 0f) {
+				animator.SetBool("isFalling", true); 
+				animator.SetBool("isJumping", false);
+				//Debug.Log ("falling: " + yVelocity);
+			}
+			if (yVelocity > 0f) {
+				animator.SetBool("isJumping", true); 
+				animator.SetBool("isFalling", false); 
+				//Debug.Log ("jumping: " + yVelocity);
+			}
 		}
 
 		transform.position += Vector3.up*yVelocity*Time.deltaTime;
@@ -176,11 +191,15 @@ public class Player : MonoBehaviour
 		// Flip player sprite based on movement
 		if(horizontal < -0.4f) {
 			this.transform.localScale = new Vector3(-1f, this.transform.localScale.y, this.transform.localScale.z);
-			animator.SetBool("isWalking", true);
+			if(onGround) {
+				animator.SetBool("isWalking", true);
+			}
 		}
 		if(horizontal > 0.4f) {
 			this.transform.localScale = new Vector3(1f, this.transform.localScale.y, this.transform.localScale.z);
-			animator.SetBool("isWalking", true);
+			if(onGround) {
+				animator.SetBool("isWalking", true);
+			}
 		}
 		if(horizontal > -0.4f && horizontal < 0.4f) {
 			animator.SetBool("isWalking", false);
