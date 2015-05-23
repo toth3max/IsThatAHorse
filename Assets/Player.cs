@@ -37,6 +37,19 @@ public class Player : MonoBehaviour
 	bool wasGoingDown;
 
 
+	void FixedUpdate()
+	{
+		
+		Vector3 cameraPosition = RotateCamera.instance.centerOculus.position;
+
+		IsGrounded(cameraPosition, out onGroundDown, out onGroundForward);
+		
+		CheckTeleport(cameraPosition);
+		
+		ApplyVerticalMovement(onGround);
+
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -52,11 +65,6 @@ public class Player : MonoBehaviour
 		
 		wasGoingDown = yVelocity < 0;
 
-		IsGrounded(cameraPosition, out onGroundDown, out onGroundForward);
-
-		CheckTeleport(cameraPosition);
-
-		ApplyVerticalMovement(onGround);
 
 
 		CheckHorizontalMovement(cameraPosition);
@@ -158,10 +166,10 @@ public class Player : MonoBehaviour
 	void CheckTeleport(Vector3 cameraPosition) {
 		// teleport in 'z' direction toclosest object
 		// only teleport when moving downwards and not grounded
-		Debug.Log (onGroundForward+" "+wasGoingDown+" "+downObject);
+//		Debug.Log (onGroundForward+" "+wasGoingDown+" "+downObject);
 		if ((onGroundForward && wasGoingDown) || downObject == null)
 		{
-			Debug.Log ("closestForwardObject "+closestForwardObject);
+//			Debug.Log ("closestForwardObject "+closestForwardObject);
 			if (closestForwardObject != null)
 			{
 				Vector3 rayDirection = oppositeSide - cameraPosition;
