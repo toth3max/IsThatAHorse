@@ -14,20 +14,23 @@ public class Player : MonoBehaviour
 
 	public AudioSource teleportSound;
 
+	public float groundCheckDistance = 0.1f;
 
 	// Use this for initialization
 	void Start () {
 	
 	}
 
-	public bool onGround { get; private set;}
+	private bool onGroundForward;
+	private bool onGroundDown;
 
 	public int hackyFrameWait = 5;
 
 	float yVelocity = 0;
 	Vector3 closestHitPoint = Vector3.zero;
 	Vector3 oppositeSide = Vector3.zero;
-	GameObject closestObject = null;
+	GameObject closestForwardObject = null;
+	GameObject downObject = null;
 	bool wasGoingDown;
 
 	// Update is called once per frame
@@ -42,11 +45,15 @@ public class Player : MonoBehaviour
 		transform.rotation = Quaternion.Euler(0, RotateCamera.instance.yDirection, 0);
 
 		Vector3 cameraPosition = RotateCamera.instance.centerOculus.position;
+		
+		wasGoingDown = yVelocity < 0;
 
-		onGround = IsGrounded(cameraPosition);
-		ApplyVerticalMovement(onGround);
+		IsGrounded(cameraPosition, out onGroundDown, out onGroundForward);
 
 		CheckTeleport(cameraPosition);
+
+		ApplyVerticalMovement(onGroundDown || onGroundForward);
+
 
 		CheckHorizontalMovement(cameraPosition);
 
@@ -54,7 +61,6 @@ public class Player : MonoBehaviour
 	}
 
 	void ApplyVerticalMovement(bool grounded) {
-		wasGoingDown = yVelocity < 0;
 		if (grounded)
 		{
 			// Remove gravity
@@ -77,53 +83,75 @@ public class Player : MonoBehaviour
 		RotateCamera.instance.TargetPosition = transform.position;
 	}
 
-	bool IsGrounded(Vector3 cameraPosition) {
+	void IsGrounded(Vector3 cameraPosition, out bool isGroundedDown, out bool isGroundedForward) 
+	{
 		int groundIntervals = 5;
-		bool hitGround = false;
+		isGroundedForward = false;
+		isGroundedDown = false;
 
-		closestObject = null;
+
+		closestForwardObject = null;
+		downObject = null;
 		for (int i = 0 ; i < groundIntervals ; i++)
 		{
 			Vector3 feetGround = Vector3.Lerp(leftFoot.position, rightFoot.position, (float)i/(groundIntervals-1f));
-			
+			// grounded downwards
+
+			RaycastHit downHit;
+			Debug.DrawRay(feetGround + Vector3.up*groundCheckDistance, Vector3.down*groundCheckDistance, Color.blue);
+			if (Physics.Raycast(feetGround + Vector3.up*groundCheckDistance, Vector3.down, out downHit, groundCheckDistance, groundLayers.value))
+			{
+				downObject = downHit.collider.gameObject;
+				transform.position = new Vector3(transform.position.x, downHit.point.y, transform.position.z);
+				isGroundedDown = true;
+			}
+
+			// grounded forwards
 			Vector3 direction = feetGround - cameraPosition;
 			
-			Debug.DrawRay(cameraPosition, direction*4, Color.red);
+			Debug.DrawRay(cameraPosition, direction*10, Color.red);
+			Debug.DrawRay(cameraPosition + Vector3.up*groundCheckDistance, direction*10, Color.green);
 			
-			RaycastHit [] hits = Physics.RaycastAll(cameraPosition, direction, direction.magnitude*4, groundLayers.value);
-			
-			if (hits.Length > 0)
+			RaycastHit [] hits = Physics.RaycastAll(cameraPosition, direction, direction.magnitude*10, groundLayers.value);
+			RaycastHit [] upperHits = Physics.RaycastAll(cameraPosition+Vector3.up*groundCheckDistance, direction, direction.magnitude*10, groundLayers.value);
+
+			bool hitOnGround = hits.Length > 0;
+			bool hitAboveGround = upperHits.Length > 0;
+
+			if (hitOnGround && !hitAboveGround && yVelocity < 0)
 			{
+//				Debug.Log("hitGround!");
 				float distance = Vector3.Distance(hits[0].point, cameraPosition);
 				float closestDistance = Vector3.Distance(closestHitPoint, cameraPosition);
 				
-				if (distance < closestDistance || closestObject == null)
+				if (distance < closestDistance || closestForwardObject == null)
 				{
 					closestHitPoint = hits[0].point;
-					closestObject = hits[0].collider.gameObject;
+					closestForwardObject = hits[0].collider.gameObject;
 					oppositeSide = cameraPosition + direction*2;
 				}
-				hitGround = true;
+				isGroundedForward = true;
 			}
+
 		}
-		return hitGround;
 	}
 
 	void CheckTeleport(Vector3 cameraPosition) {
 		// teleport in 'z' direction toclosest object
 		// only teleport when moving downwards and not grounded
-//		Debug.Log (onGround+" "+wasGoingDown);
-		if (onGround && wasGoingDown)
+		Debug.Log (onGroundForward+" "+wasGoingDown+" "+downObject);
+		if ((onGroundForward && wasGoingDown) || downObject == null)
 		{
-			if (closestObject != null)
+			Debug.Log ("closestForwardObject "+closestForwardObject);
+			if (closestForwardObject != null)
 			{
 				Vector3 rayDirection = oppositeSide - cameraPosition;
 				RaycastHit [] oppositeHits = Physics.RaycastAll(oppositeSide, -rayDirection, rayDirection.magnitude, groundLayers);
 				RaycastHit [] forwardHits = Physics.RaycastAll(cameraPosition, rayDirection, rayDirection.magnitude, groundLayers);
 				
 				
-				int oppositeHitIndex = System.Array.FindIndex(oppositeHits, (h) => h.collider.gameObject == closestObject);
-				int forwardHitIndex = System.Array.FindIndex(forwardHits, (h) => h.collider.gameObject == closestObject);
+				int oppositeHitIndex = System.Array.FindIndex(oppositeHits, (h) => h.collider.gameObject == closestForwardObject);
+				int forwardHitIndex = System.Array.FindIndex(forwardHits, (h) => h.collider.gameObject == closestForwardObject);
 				
 				if (oppositeHitIndex == -1)
 					Debug.LogError("Did not raycast a hit in the opposite direciton, IMPOSSIBRU!");
@@ -143,7 +171,7 @@ public class Player : MonoBehaviour
 				Debug.Log (closeHitDistance +" : "+playerDistance+" : "+farHitDistance);
 				float targetPlayerPosition = Mathf.Clamp(playerDistance, closeHitDistance, farHitDistance);
 
-				Debug.Log (closestObject);
+				Debug.Log (closestForwardObject);
 
 				Vector3 centerDirection = GetCenterDirection(cameraPosition);
 

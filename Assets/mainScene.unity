@@ -259,6 +259,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11446536, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
+      propertyPath: useOculusForControls
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
   m_IsPrefabParent: 0
@@ -300,6 +304,10 @@ Prefab:
     - target: {fileID: 406920, guid: 2b3b9207dbb0ecf4d942138895135e56, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444848, guid: 2b3b9207dbb0ecf4d942138895135e56, type: 2}
+      propertyPath: groundCheckDistance
+      value: .5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b3b9207dbb0ecf4d942138895135e56, type: 2}
