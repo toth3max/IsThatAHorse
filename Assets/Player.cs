@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
 			yVelocity = 0;
 
 			// jump
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetButton("Jump"))
 			{
 				yVelocity = jumpVelocity;
 			}
@@ -92,25 +92,16 @@ public class Player : MonoBehaviour
 		transform.position += Vector3.up*yVelocity*Time.deltaTime;
 
 
-		float leftMove = 0;
-		if (Input.GetKey(KeyCode.A))
-		{
-			leftMove += 1;
-		}
-		if (Input.GetKey(KeyCode.D))
-		{
-			leftMove -= 1;
-		}
-//		Debug.Log(leftMove);
+		// Read the horizontal movement
+		float horizontal = Input.GetAxisRaw ("Horizontal");
 
-		// left right controls
 		Vector3 centerFoot = Vector3.Lerp(leftFoot.position, rightFoot.position, 0.5f);
 		
 		Vector3 centerDirection = centerFoot - cameraPosition;
 		centerDirection.Normalize();
 		Vector3 rightVector = Vector3.Cross(Vector3.up, centerDirection);
 
-		transform.position -= leftMove*rightVector*moveSpeed*Time.deltaTime;
+		transform.position += horizontal*rightVector*moveSpeed*Time.deltaTime;
 
 		
 		// teleport in 'z' direction toclosest object

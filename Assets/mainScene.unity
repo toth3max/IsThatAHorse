@@ -435,7 +435,7 @@ MonoBehaviour:
   trackingCenter: {fileID: 1024937209}
   oculusControls: {fileID: 2078047420}
   useOculusForControls: 0
-  nonOculusRotationSpeed: 60
+  nonOculusRotationSpeed: 50
   nonOculusCamera: {fileID: 181445282}
 --- !u!4 &741019780 stripped
 Transform:
@@ -637,9 +637,9 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 256
-  jumpVelocity: 20
-  gravity: 30
-  moveSpeed: 20
+  jumpVelocity: 25
+  gravity: 70
+  moveSpeed: 10
   hackyFrameWait: 5
 --- !u!4 &1723465743
 Transform:
