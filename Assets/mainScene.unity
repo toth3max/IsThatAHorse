@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 8998975f47ba7a045bdfdab2ec9641e4, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -696,6 +696,22 @@ Prefab:
     - target: {fileID: 11446536, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
       propertyPath: useOculusForControls
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062316, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: .2515679
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062316, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: .288131326
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062316, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: .345588207
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062316, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
+      propertyPath: m_ClearFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
