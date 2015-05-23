@@ -62,11 +62,11 @@ public class RotateCamera : MonoBehaviour
 		}
 		else
 		{
-			if (Input.GetKey(KeyCode.Q))
+			if (Input.GetButton("PanLeft"))
 			{
 				yDirection += nonOculusRotationSpeed*Time.deltaTime;
 			}
-			if (Input.GetKey(KeyCode.E))
+			if (Input.GetButton("PanRight"))
 			{
 				yDirection -= nonOculusRotationSpeed*Time.deltaTime;
 			}
