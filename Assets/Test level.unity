@@ -298,66 +298,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3662015}
   m_RootOrder: 0
---- !u!1 &700508873
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 700508875}
-  - 108: {fileID: 700508874}
-  m_Layer: 0
-  m_Name: CameraLight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &700508874
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 700508873}
-  m_Enabled: 1
-  serializedVersion: 6
-  m_Type: 1
-  m_Color: {r: 1, g: .956862748, b: .839215696, a: 1}
-  m_Intensity: .5
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_Strength: 1
-    m_Bias: .0500000007
-    m_NormalBias: .400000006
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_BounceIntensity: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_AreaSize: {x: 1, y: 1}
---- !u!4 &700508875
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 700508873}
-  m_LocalRotation: {x: .173648223, y: 0, z: 0, w: .984807789}
-  m_LocalPosition: {x: 0, y: 5, z: -61.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1105808406}
-  m_RootOrder: 2
 --- !u!1001 &857121257
 Prefab:
   m_ObjectHideFlags: 0
@@ -743,17 +683,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11446536, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
-      propertyPath: useOculusForControls
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1105808406 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 496032, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
-  m_PrefabInternal: {fileID: 1059862725}
 --- !u!43 &1339820264
 Mesh:
   m_ObjectHideFlags: 0
