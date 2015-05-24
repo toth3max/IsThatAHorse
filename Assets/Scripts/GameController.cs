@@ -65,18 +65,49 @@ public class GameController : MonoBehaviour
 			{
 				currentSetEnvironment.effectObject.Stop();
 				currentSetEnvironment.effectWind.gameObject.SetActive(false);
-
+				FadeOutMusic();
 			}
 
 			// fade in currentEnvironment
 			
 			currentEnvironment.effectObject.Play();
 			currentEnvironment.effectWind.gameObject.SetActive(true);
+			QueueMusic(currentEnvironment.audio);
 
-
+			StartCoroutine("CrossFadeMusic");
 			// set new
 			currentSetEnvironment = currentEnvironment;
 		}
+	}
+
+	private AudioSource previousAudioSource;
+	private AudioSource currentAudioSource;
+	void FadeOutMusic() {
+		previousAudioSource = currentAudioSource;
+		currentAudioSource = null;
+	}
+	void QueueMusic(AudioSource audio) {
+		currentAudioSource = Instantiate<AudioSource>(audio);
+		currentAudioSource.volume = 0f;
+		currentAudioSource.Play ();
+	}
+
+	private IEnumerator CrossFadeMusic()
+	{
+		float fTimeCounter = 0f;
+		
+		while(!(Mathf.Approximately(fTimeCounter, 1f)))
+		{
+			fTimeCounter = Mathf.Clamp01(fTimeCounter + Time.deltaTime);
+			if(previousAudioSource != null) {
+				previousAudioSource.volume = 1f - fTimeCounter;
+			}
+			currentAudioSource.volume = fTimeCounter;
+			yield return new WaitForSeconds(0.02f);
+		}
+		previousAudioSource.Stop ();
+		previousAudioSource = null;
+		StopCoroutine("CrossFadeMusic");
 	}
 }
 
