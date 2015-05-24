@@ -3174,7 +3174,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11446536, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
       propertyPath: useOculusForControls
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 10897774, guid: fc683c0941de0a74c939b6695f24c278, type: 2}
       propertyPath: m_Color.r
