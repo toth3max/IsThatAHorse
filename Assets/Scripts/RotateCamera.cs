@@ -17,6 +17,11 @@ public class RotateCamera : MonoBehaviour
 
 
 	public GameObject oculusControls;
+	
+	[Header("Oculus Eyes")]
+//	public float targetFOV = 30;
+	public Camera leftEye;
+	public Camera rightEye;
 
 	[Header("Non oculus mode")]
 	public bool useOculusForControls = true;
@@ -73,8 +78,11 @@ public class RotateCamera : MonoBehaviour
 			Vector3 flatForward = centerOculus.transform.localRotation.eulerAngles;
 
 			float targetYDirection = flatForward.y*rotationFactor;
-			yDirection = Mathf.LerpAngle(yDirection, targetYDirection, 0.1f);
+			yDirection = Mathf.LerpAngle(yDirection, targetYDirection, 0.33f);
 			yDirectionOffset = yDirection - targetYDirection;
+
+//			leftEye.fieldOfView = targetFOV;
+//			rightEye.fieldOfView = targetFOV;
 		}
 		else
 		{

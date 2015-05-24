@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
 		public AudioSource audio;
 	}
 
+	public Player player;
+
 	public EnvironmentData winterEnvironment;
 	public EnvironmentData springEnvironment;
 //	public EnvironmentData summerEnvironment; 
@@ -42,6 +44,9 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		if (player.transform.position.y < -50)
+			player.Reset();
+
 		EnvironmentData currentEnvironment = null;
 
 		foreach (EnvironmentData e in environments)
@@ -58,14 +63,23 @@ public class GameController : MonoBehaviour
 
 		if (currentEnvironment != null && currentEnvironment != currentSetEnvironment)
 		{
-			RenderSettings.skybox = currentEnvironment.skybox;
-			
+			StopAllCoroutines();
+//			RenderSettings.skybox = currentEnvironment.skybox;
+
 			// fade out currentSetEnvironment
 			if (currentSetEnvironment != null)
 			{
+				StartCoroutine(FadeSkybox(0.66f, currentSetEnvironment.skybox, currentEnvironment.skybox));
+
 				currentSetEnvironment.effectObject.Stop();
 				currentSetEnvironment.effectWind.gameObject.SetActive(false);
 
+			}
+			else
+			{
+				foreach (string propName in propNames)
+					RenderSettings.skybox.SetTexture(propName, currentEnvironment.skybox.GetTexture(propName));
+				RenderSettings.skybox.SetFloat("_Fade", 0);
 			}
 
 			// fade in currentEnvironment
@@ -77,6 +91,29 @@ public class GameController : MonoBehaviour
 			// set new
 			currentSetEnvironment = currentEnvironment;
 		}
+	}
+	
+
+	string [] propNames = new string[] {"_FrontTex", "_BackTex", "_LeftTex", "_RightTex", "_UpTex", "_DownTex"};
+
+
+	IEnumerator FadeSkybox(float time, Material from, Material to)
+	{
+		foreach (string propName in propNames)
+		{
+			RenderSettings.skybox.SetTexture(propName, from.GetTexture(propName));
+			RenderSettings.skybox.SetTexture(propName+"2", to.GetTexture(propName));
+		}
+
+		float t = 0;
+		while (t < time)
+		{
+			RenderSettings.skybox.SetFloat("_Fade", t/time);
+			t += Time.deltaTime;
+			yield return null;
+		}
+		
+		RenderSettings.skybox.SetFloat("_Fade", 1);
 	}
 }
 

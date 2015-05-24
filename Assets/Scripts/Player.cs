@@ -18,9 +18,12 @@ public class Player : MonoBehaviour
 	public float groundCheckDistance = 0.1f;
 	private Animator animator;
 
+	private Vector3 originalCatLocalPosition = Vector3.zero;
+
 	// Use this for initialization
 	void Start () {
 		animator = catSprite.GetComponent<Animator>();
+		originalCatLocalPosition = catSprite.transform.localPosition;
 	}
 
 	private bool onGroundForward;
@@ -72,13 +75,21 @@ public class Player : MonoBehaviour
 
 		RealignCamera();
 		CheckReset ();
+
+		catSprite.transform.localPosition = Vector3.Lerp(catSprite.transform.localPosition, originalCatLocalPosition, 0.1f);
+		catSprite.transform.localPosition = new Vector3(catSprite.transform.localPosition.x, originalCatLocalPosition.y, catSprite.transform.localPosition.z);
 	}
 
 	void CheckReset() {
 		if (Input.GetButton ("ResetPlayer")) {
-			transform.position = lastKnownGoodPosition;
-			yVelocity = 0;
+			Reset();
 		}
+	}
+
+	public void Reset()
+	{
+		transform.position = lastKnownGoodPosition;
+		yVelocity = 0;
 	}
 
 	void ApplyVerticalMovement(bool grounded) {
@@ -90,7 +101,11 @@ public class Player : MonoBehaviour
 			animator.SetBool("isJumping", false); 
 			animator.SetBool("isFalling", false);
 
-			if (Input.GetButton("Jump")) {
+			if (downObject != null && downObject.GetComponent<JumpTrigger>() != null)
+			{
+				yVelocity = downObject.GetComponent<JumpTrigger>().jumpVelocity;
+			}
+			else if (Input.GetButton("Jump")) {
 				yVelocity = jumpVelocity;
 			}
 		}
@@ -134,23 +149,29 @@ public class Player : MonoBehaviour
 			Vector3 feetGround = Vector3.Lerp(leftFoot.position, rightFoot.position, (float)i/(groundIntervals-1f));
 			// grounded downwards
 
-			RaycastHit downHit;
-			Debug.DrawRay(feetGround + Vector3.up*groundCheckDistance, Vector3.down*groundCheckDistance, Color.blue);
-			if (Physics.Raycast(feetGround + Vector3.up*groundCheckDistance, Vector3.down, out downHit, groundCheckDistance, groundLayers.value))
+			
+			if (yVelocity <= 0) // only check for downward objects if going down
 			{
-				downObject = downHit.collider.gameObject;
-				transform.position = new Vector3(transform.position.x, downHit.point.y, transform.position.z);
-				isGroundedDown = true;
+				RaycastHit downHit;
+				Debug.DrawRay(feetGround + Vector3.up*groundCheckDistance, Vector3.down*groundCheckDistance, Color.blue);
+				if (Physics.Raycast(feetGround + Vector3.up*groundCheckDistance, Vector3.down, out downHit, groundCheckDistance, groundLayers.value))
+				{
+					downObject = downHit.collider.gameObject;
+					transform.position = new Vector3(transform.position.x, downHit.point.y, transform.position.z);
+					isGroundedDown = true;
+				}
 			}
 
 			// grounded forwards
 			Vector3 direction = feetGround - cameraPosition;
-			
+
+			float directionMultiplier = 100;
+
 			Debug.DrawRay(cameraPosition, direction*10, Color.red);
-			Debug.DrawRay(cameraPosition + Vector3.up*groundCheckDistance, direction*10, Color.green);
+			Debug.DrawRay(cameraPosition + Vector3.up*groundCheckDistance, direction*directionMultiplier, Color.green);
 			
-			RaycastHit [] hits = Physics.RaycastAll(cameraPosition, direction, direction.magnitude*10, groundLayers.value);
-			RaycastHit [] upperHits = Physics.RaycastAll(cameraPosition+Vector3.up*groundCheckDistance, direction, direction.magnitude*10, groundLayers.value);
+			RaycastHit [] hits = Physics.RaycastAll(cameraPosition, direction, direction.magnitude*directionMultiplier, groundLayers.value);
+			RaycastHit [] upperHits = Physics.RaycastAll(cameraPosition+Vector3.up*groundCheckDistance, direction, direction.magnitude*directionMultiplier, groundLayers.value);
 
 			bool hitOnGround = hits.Length > 0;
 			bool hitAboveGround = upperHits.Length > 0;
@@ -165,19 +186,20 @@ public class Player : MonoBehaviour
 				{
 					closestHitPoint = hits[0].point;
 					closestForwardObject = hits[0].collider.gameObject;
-					oppositeSide = cameraPosition + direction*2;
+					oppositeSide = cameraPosition + direction*directionMultiplier;
 				}
 				isGroundedForward = true;
 			}
 
 		}
+
 	}
 
 	void CheckTeleport(Vector3 cameraPosition) {
 		// teleport in 'z' direction toclosest object
 		// only teleport when moving downwards and not grounded
 //		Debug.Log (onGroundForward+" "+wasGoingDown+" "+downObject);
-		if ((onGroundForward && wasGoingDown) || downObject == null)
+		if ((onGroundForward && (wasGoingDown || yVelocity == 0)) || downObject == null)
 		{
 //			Debug.Log ("closestForwardObject "+closestForwardObject);
 			if (closestForwardObject != null)
@@ -189,12 +211,20 @@ public class Player : MonoBehaviour
 				
 				int oppositeHitIndex = System.Array.FindIndex(oppositeHits, (h) => h.collider.gameObject == closestForwardObject);
 				int forwardHitIndex = System.Array.FindIndex(forwardHits, (h) => h.collider.gameObject == closestForwardObject);
-				
+
+				Debug.DrawRay(oppositeSide, -rayDirection, Color.magenta);
+
 				if (oppositeHitIndex == -1)
+				{
 					Debug.LogError("Did not raycast a hit in the opposite direciton, IMPOSSIBRU!");
+					return;
+				}
 				
 				if (forwardHitIndex == -1)
+				{
 					Debug.LogError("Did not raycast a hit in the foraward direciton, IMPOSSIBRU!");
+					return;
+				}
 				
 				Vector3 farHit = oppositeHits[oppositeHitIndex].point;
 				Vector3 closeHit = forwardHits[forwardHitIndex].point;
@@ -213,8 +243,11 @@ public class Player : MonoBehaviour
 				Vector3 centerDirection = GetCenterDirection(cameraPosition);
 
 				Vector3 playerSphericalPosition = centerDirection.normalized;
+
+				Vector3 oldPosition = transform.position;
 				transform.position = cameraPosition + playerSphericalPosition * targetPlayerPosition;
-				
+				catSprite.transform.position = oldPosition;
+
 				Debug.DrawRay(cameraPosition, transform.position, Color.red);
 				
 				//steleportSound.Play();
