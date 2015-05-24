@@ -18,7 +18,8 @@ public class GameController : MonoBehaviour
 
 	public EnvironmentData winterEnvironment;
 	public EnvironmentData springEnvironment;
-//	public EnvironmentData summerEnvironment; 
+	public EnvironmentData summerEnvironment; 
+//	public EnvironmentData autumnEnvironment; 
 
 	EnvironmentData currentSetEnvironment = null;
 
@@ -29,7 +30,8 @@ public class GameController : MonoBehaviour
 	{
 		environments.Add (winterEnvironment);
 		environments.Add (springEnvironment);
-//		environments.Add (summerEnvironment);
+		environments.Add (summerEnvironment);
+//		environments.Add (autumnEnvironment);
 
 		environments.Sort ((e, f) => e.environment.position.y.CompareTo(f.environment.position.y));
 
@@ -87,7 +89,8 @@ public class GameController : MonoBehaviour
 			currentEnvironment.effectObject.Play();
 			currentEnvironment.effectWind.gameObject.SetActive(true);
 			QueueMusic(currentEnvironment.audio);
-
+			
+//			StopCoroutine("CrossFadeMusic");
 			StartCoroutine("CrossFadeMusic");
 			// set new
 			currentSetEnvironment = currentEnvironment;
@@ -135,15 +138,19 @@ public class GameController : MonoBehaviour
 		while(!(Mathf.Approximately(fTimeCounter, 1f)))
 		{
 			fTimeCounter = Mathf.Clamp01(fTimeCounter + Time.deltaTime);
-			if(previousAudioSource != null) {
+			if(previousAudioSource != null) 
+			{
 				previousAudioSource.volume = 1f - fTimeCounter;
 			}
 			currentAudioSource.volume = fTimeCounter;
 			yield return new WaitForSeconds(0.02f);
 		}
-		previousAudioSource.Stop ();
-		previousAudioSource = null;
-		StopCoroutine("CrossFadeMusic");
+		
+		if(previousAudioSource != null) 
+		{
+			previousAudioSource.Stop ();
+			previousAudioSource = null;
+		}
 	}
 }
 
