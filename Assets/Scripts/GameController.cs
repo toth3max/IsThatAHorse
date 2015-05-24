@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
 	public EnvironmentData springEnvironment;
 	public EnvironmentData summerEnvironment; 
 	public EnvironmentData autumnEnvironment; 
+	public EnvironmentData startEnvironment; 
 
 	EnvironmentData currentSetEnvironment = null;
 
@@ -32,13 +33,19 @@ public class GameController : MonoBehaviour
 		environments.Add (springEnvironment);
 		environments.Add (summerEnvironment);
 		environments.Add (autumnEnvironment);
+		if (startEnvironment.environment != null)
+			environments.Add (startEnvironment);
 
 		environments.Sort ((e, f) => e.environment.position.y.CompareTo(f.environment.position.y));
 
 		foreach (EnvironmentData e in environments)
 		{
-			e.effectObject.Stop();
-			e.effectWind.gameObject.SetActive(false);
+			if (e.effectWind != null)
+			{
+				e.effectObject.Stop();
+
+				e.effectWind.gameObject.SetActive(false);
+			}
 
 			e.audio.volume = 0;
 			e.audio.Play();
@@ -49,7 +56,7 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if (player.transform.position.y < -50)
+		if (player.transform.position.y < environments[0].environment.transform.position.y - 50)
 			player.Reset();
 
 		EnvironmentData currentEnvironment = null;
@@ -76,8 +83,10 @@ public class GameController : MonoBehaviour
 			{
 				StartCoroutine(FadeSkybox(0.66f, currentSetEnvironment.skybox, currentEnvironment.skybox));
 
-				currentSetEnvironment.effectObject.Stop();
-				currentSetEnvironment.effectWind.gameObject.SetActive(false);
+				if (currentSetEnvironment.effectObject != null)
+					currentSetEnvironment.effectObject.Stop();
+				if (currentSetEnvironment.effectWind != null)
+					currentSetEnvironment.effectWind.gameObject.SetActive(false);
 //				FadeOutMusic();
 			}
 			else
@@ -89,14 +98,26 @@ public class GameController : MonoBehaviour
 
 			// fade in currentEnvironment
 			
-			currentEnvironment.effectObject.Play();
-			currentEnvironment.effectWind.gameObject.SetActive(true);
+			if (currentEnvironment.effectObject != null)
+				currentEnvironment.effectObject.Play();
+			if (currentEnvironment.effectWind != null)
+				currentEnvironment.effectWind.gameObject.SetActive(true);
 //			QueueMusic(currentEnvironment.audio);
+
+			Dictionary<AudioSource, float> targetValue = new Dictionary<AudioSource, float>();
+
 
 			foreach (EnvironmentData e in environments)
 			{
-				StartCoroutine(FadeAudioSource(0.66f, e.audio, e == currentEnvironment ? 1 : 0));
+				if (!targetValue.ContainsKey(e.audio))
+					targetValue[e.audio] = 0;
+				targetValue[e.audio] = Mathf.Max(targetValue[e.audio], currentEnvironment == e ? 1 : 0);
 			}
+
+			
+			foreach (AudioSource a in targetValue.Keys)
+				StartCoroutine(FadeAudioSource(0.66f, a, targetValue[a]));
+
 
 //			StopCoroutine("CrossFadeMusic");
 			
@@ -129,16 +150,18 @@ public class GameController : MonoBehaviour
 		while (t < time)
 		{
 			RenderSettings.skybox.SetFloat("_Fade", t/time);
+			RenderSettings.skybox.SetColor("_Tint", Color.Lerp(from.GetColor("_Tint"), to.GetColor("_Tint"), t/time));
 			t += Time.deltaTime;
 			yield return null;
 		}
 		
 		RenderSettings.skybox.SetFloat("_Fade", 1);
+		RenderSettings.skybox.SetColor("_Tint", to.GetColor("_Tint"));
 	}
 
 	IEnumerator FadeAudioSource(float time, AudioSource audio, float volume)
 	{
-		Debug.Log ("Fading audio "+audio.volume +" => "+ volume);
+//		Debug.Log ("Fading audio "+audio.volume +" => "+ volume);
 		float origVol = audio.volume;
 		float t = 0;
 		while (t < time)

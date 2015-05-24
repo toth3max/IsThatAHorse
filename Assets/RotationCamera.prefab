@@ -195,7 +195,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137358}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: .0523355715, y: 0, z: 0, w: -.99862957}
   m_LocalPosition: {x: 0, y: 0, z: -61.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -390,7 +390,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: 1, g: .956862748, b: .839215696, a: 1}
+  m_Color: {r: .839215696, g: .906856, b: 1, a: 1}
   m_Intensity: .5
   m_Range: 10
   m_SpotAngle: 30
@@ -429,7 +429,7 @@ MonoBehaviour:
   eyeTextureFormat: 7
   eyeTextureAntiAliasing: 2
   eyeTextureDepth: 24
-  usePositionTracking: 1
+  usePositionTracking: 0
   timeWarp: 1
   freezeTimeWarp: 0
   resetTrackerOnLoad: 1
@@ -462,7 +462,7 @@ MonoBehaviour:
   oculusControls: {fileID: 136038}
   leftEye: {fileID: 2073748}
   rightEye: {fileID: 2050730}
-  useOculusForControls: 1
+  useOculusForControls: 0
   nonOculusRotationSpeed: 50
   nonOculusCamera: {fileID: 2062316}
   rotationFactor: 2
