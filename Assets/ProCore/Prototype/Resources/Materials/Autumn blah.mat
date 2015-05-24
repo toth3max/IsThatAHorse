@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Transision Skybox
-  m_Shader: {fileID: 4800000, guid: 6520902005e675d45918311d221db469, type: 3}
+  m_Name: Autumn blah
+  m_Shader: {fileID: 4800000, guid: 5f2e318166a2346a4a1c50f27f484127, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: be7b411c5f755644d8dbd90a66c2ef71, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -79,86 +79,30 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _FrontTex
+          name: _FirstTex
         second:
-          m_Texture: {fileID: 2800000, guid: 7f6d90e6d41443a44b70992db37b7fea, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _BackTex
+          name: _SecondTex
         second:
-          m_Texture: {fileID: 2800000, guid: ef9af420de1628b41a542adc82ad9e62, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _LeftTex
+          name: _ThirdTex
         second:
-          m_Texture: {fileID: 2800000, guid: 017bf9289216bb54aaeeb995606fa764, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _RightTex
+          name: _FourthTex
         second:
-          m_Texture: {fileID: 2800000, guid: 8d454d1515caf7d4c95e3ef2d91435ba, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _UpTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 9cc4634cd4a68a94c85020c56dd315ad, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DownTex
-        second:
-          m_Texture: {fileID: 2800000, guid: d1964d8a5d92640488bb65facb44788e, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _FrontTex2
-        second:
-          m_Texture: {fileID: 2800000, guid: d3bcbd4c1b3ccf14f841a11451769494, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _BackTex2
-        second:
-          m_Texture: {fileID: 2800000, guid: 15926c82ea7832a4b8fc5af73a54a296, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _LeftTex2
-        second:
-          m_Texture: {fileID: 2800000, guid: 235d296dcc2c4254fb1e966d146c3e3a, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _RightTex2
-        second:
-          m_Texture: {fileID: 2800000, guid: 6c0bd484406372049aaa6c78e93b98df, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _UpTex2
-        second:
-          m_Texture: {fileID: 2800000, guid: e87ce859a896f2c49a882410d3645a54, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DownTex2
-        second:
-          m_Texture: {fileID: 2800000, guid: 6eb7b3ae1a12a6a438ec11684644b8e8, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -166,18 +110,6 @@ Material:
         first:
           name: _Cutoff
         second: .5
-      data:
-        first:
-          name: _Exposure
-        second: 1
-      data:
-        first:
-          name: _SunSize
-        second: .591000021
-      data:
-        first:
-          name: _AtmosphereThickness
-        second: 3.75
       data:
         first:
           name: _SrcBlend
@@ -226,14 +158,6 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _Rotation
-        second: 0
-      data:
-        first:
-          name: _Fade
-        second: 1
     m_Colors:
       data:
         first:
@@ -245,17 +169,5 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _SkyTint
-        second: {r: .5, g: .5, b: .5, a: 1}
-      data:
-        first:
-          name: _GroundColor
-        second: {r: .368999988, g: .349000007, b: .340999991, a: 1}
-      data:
-        first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _Tint
-        second: {r: .5, g: .5, b: .5, a: .5}

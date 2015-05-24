@@ -10,35 +10,35 @@ GameObject:
   - 4: {fileID: 493640}
   - 198: {fileID: 19882820}
   - 199: {fileID: 19960270}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Autumn Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &185412
+--- !u!1 &166124
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 485236}
-  - 182: {fileID: 18225220}
-  m_Layer: 11
-  m_Name: Spring wind
+  - 4: {fileID: 414538}
+  - 182: {fileID: 18220472}
+  m_Layer: 10
+  m_Name: Snow Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &485236
+--- !u!4 &414538
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185412}
+  m_GameObject: {fileID: 166124}
   m_LocalRotation: {x: -1, y: 0, z: 0, w: 1.49011598e-07}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -52,21 +52,21 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150146}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 2.29999995, y: 132.800003, z: .5}
+  m_LocalPosition: {x: 2.29999995, y: 24.7999992, z: .5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 485236}
+  - {fileID: 414538}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!182 &18225220
+--- !u!182 &18220472
 WindZone:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185412}
+  m_GameObject: {fileID: 166124}
   m_Enabled: 1
   m_Mode: 0
-  m_Radius: 61.2900009
+  m_Radius: .200000003
   m_WindMain: .150000006
   m_WindTurbulence: 10000
   m_WindPulseMagnitude: .5
@@ -242,13 +242,13 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4291435775
+        rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4293172479
-      minMaxState: 2
+        rgba: 4294967295
+      minMaxState: 0
     startSize:
-      scalar: .800000012
+      scalar: .400000006
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1104,7 +1104,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: adf644484aeac05429339fb962bbc315, type: 2}
+  - {fileID: 2100000, guid: 26a2a9bd87611eb4b8fa30e317222ee3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

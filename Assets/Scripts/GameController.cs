@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 	public EnvironmentData winterEnvironment;
 	public EnvironmentData springEnvironment;
 	public EnvironmentData summerEnvironment; 
-//	public EnvironmentData autumnEnvironment; 
+	public EnvironmentData autumnEnvironment; 
 
 	EnvironmentData currentSetEnvironment = null;
 
@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
 		environments.Add (winterEnvironment);
 		environments.Add (springEnvironment);
 		environments.Add (summerEnvironment);
-//		environments.Add (autumnEnvironment);
+		environments.Add (autumnEnvironment);
 
 		environments.Sort ((e, f) => e.environment.position.y.CompareTo(f.environment.position.y));
 
@@ -39,6 +39,9 @@ public class GameController : MonoBehaviour
 		{
 			e.effectObject.Stop();
 			e.effectWind.gameObject.SetActive(false);
+
+			e.audio.volume = 0;
+			e.audio.Play();
 		}
 	}
 
@@ -75,7 +78,7 @@ public class GameController : MonoBehaviour
 
 				currentSetEnvironment.effectObject.Stop();
 				currentSetEnvironment.effectWind.gameObject.SetActive(false);
-				FadeOutMusic();
+//				FadeOutMusic();
 			}
 			else
 			{
@@ -88,10 +91,24 @@ public class GameController : MonoBehaviour
 			
 			currentEnvironment.effectObject.Play();
 			currentEnvironment.effectWind.gameObject.SetActive(true);
-			QueueMusic(currentEnvironment.audio);
-			
+//			QueueMusic(currentEnvironment.audio);
+
+			foreach (EnvironmentData e in environments)
+			{
+				StartCoroutine(FadeAudioSource(0.66f, e.audio, e == currentEnvironment ? 1 : 0));
+			}
+
 //			StopCoroutine("CrossFadeMusic");
-			StartCoroutine("CrossFadeMusic");
+			
+//			if (isFading)
+//			{
+//				StopCoroutine("CrossFadeMusic");
+//				
+//				CleanUpMusic();
+//				isFading = false;
+//			}
+//			StartCoroutine("CrossFadeMusic");
+
 			// set new
 			currentSetEnvironment = currentEnvironment;
 		}
@@ -119,39 +136,65 @@ public class GameController : MonoBehaviour
 		RenderSettings.skybox.SetFloat("_Fade", 1);
 	}
 
-	private AudioSource previousAudioSource;
-	private AudioSource currentAudioSource;
-	void FadeOutMusic() {
-		previousAudioSource = currentAudioSource;
-		currentAudioSource = null;
-	}
-	void QueueMusic(AudioSource audio) {
-		currentAudioSource = Instantiate<AudioSource>(audio);
-		currentAudioSource.volume = 0f;
-		currentAudioSource.Play ();
+	IEnumerator FadeAudioSource(float time, AudioSource audio, float volume)
+	{
+		Debug.Log ("Fading audio "+audio.volume +" => "+ volume);
+		float origVol = audio.volume;
+		float t = 0;
+		while (t < time)
+		{
+			audio.volume = Mathf.Lerp(origVol, volume, t/time);
+			t += Time.deltaTime;
+			yield return null;
+		}
+		audio.volume = volume;
 	}
 
-	private IEnumerator CrossFadeMusic()
-	{
-		float fTimeCounter = 0f;
-		
-		while(!(Mathf.Approximately(fTimeCounter, 1f)))
-		{
-			fTimeCounter = Mathf.Clamp01(fTimeCounter + Time.deltaTime);
-			if(previousAudioSource != null) 
-			{
-				previousAudioSource.volume = 1f - fTimeCounter;
-			}
-			currentAudioSource.volume = fTimeCounter;
-			yield return new WaitForSeconds(0.02f);
-		}
-		
-		if(previousAudioSource != null) 
-		{
-			previousAudioSource.Stop ();
-			previousAudioSource = null;
-		}
-	}
+//	private AudioSource previousAudioSource;
+//	private AudioSource currentAudioSource;
+//	void FadeOutMusic() {
+//		previousAudioSource = currentAudioSource;
+//		currentAudioSource = null;
+//	}
+//	void QueueMusic(AudioSource audio) {
+//		currentAudioSource = Instantiate<AudioSource>(audio);
+//		currentAudioSource.volume = 0f;
+//		currentAudioSource.Play ();
+//	}
+//
+//
+//	bool isFading = false;
+//	
+//	private IEnumerator CrossFadeMusic()
+//	{
+//		isFading = true;
+//		float fTimeCounter = 0f;
+//		
+//		while(!(Mathf.Approximately(fTimeCounter, 1f)))
+//		{
+//			fTimeCounter = Mathf.Clamp01(fTimeCounter + Time.deltaTime);
+//			if(previousAudioSource != null) 
+//			{
+//				previousAudioSource.volume = 1f - fTimeCounter;
+//			}
+//			currentAudioSource.volume = fTimeCounter;
+//			yield return new WaitForSeconds(0.02f);
+//		}
+//
+//		CleanUpMusic();
+//
+//		isFading = false;
+//	}
+//
+//	void CleanUpMusic()
+//	{
+//		if(previousAudioSource != null) 
+//		{
+//			previousAudioSource.Stop ();
+//			Destroy(previousAudioSource.gameObject);
+//			previousAudioSource = null;
+//		}
+//	}
 }
 
 
