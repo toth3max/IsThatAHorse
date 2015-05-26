@@ -8,6 +8,12 @@ public class RotateCamera : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
+		
+		if (nonOculusCamera.gameObject.activeSelf != !useOculusForControls)
+			nonOculusCamera.gameObject.SetActive(!useOculusForControls);
+		 	
+		if (oculusControls.gameObject.activeSelf != useOculusForControls)
+			oculusControls.gameObject.SetActive(useOculusForControls);
 	}
 
 //	public float distance = 60;
@@ -16,7 +22,6 @@ public class RotateCamera : MonoBehaviour
 	public Transform trackingCenter;
 
 
-	public GameObject oculusControls;
 	
 	[Header("Oculus Eyes")]
 //	public float targetFOV = 30;
@@ -28,15 +33,14 @@ public class RotateCamera : MonoBehaviour
 
 	public float nonOculusRotationSpeed = 30;
 	public Camera nonOculusCamera;
+	public GameObject oculusControls;
 	
 	public float rotationFactor = 2;
 
 	// Use this for initialization
 	void Start () 
 	{
-		
-		nonOculusCamera.gameObject.SetActive(!useOculusForControls);
-		oculusControls.gameObject.SetActive(useOculusForControls);
+
 
 		
 	}
