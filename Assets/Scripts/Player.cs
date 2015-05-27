@@ -92,10 +92,16 @@ public class Player : MonoBehaviour
 		yVelocity = 0;
 	}
 
+	void SaveGroundedPosition() {
+		if(transform.position.y > lastKnownGoodPosition.y) {
+			lastKnownGoodPosition = transform.position;
+		}
+	}
+
 	void ApplyVerticalMovement(bool grounded) {
 		if (grounded)
 		{
-			lastKnownGoodPosition = transform.position;
+			SaveGroundedPosition();
 			// Remove gravity
 			yVelocity = 0;
 			animator.SetBool("isJumping", false); 
