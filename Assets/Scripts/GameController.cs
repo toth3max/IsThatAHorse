@@ -56,6 +56,10 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		if (Input.GetButton ("ResetGame")) { 
+			Application.LoadLevel(Application.loadedLevel);
+		} 
+
 		if (player.transform.position.y < environments[0].environment.transform.position.y - 50)
 			player.Reset();
 

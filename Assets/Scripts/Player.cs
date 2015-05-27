@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
+		lastKnownGoodPosition = transform.position;
+		
 		animator = catSprite.GetComponent<Animator>();
 		originalCatLocalPosition = catSprite.transform.localPosition;
 	}
